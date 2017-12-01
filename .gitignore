@@ -27,6 +27,3 @@ node_modules
 
 
 # Source files (for production only)
-aurelia_project
-src
-test

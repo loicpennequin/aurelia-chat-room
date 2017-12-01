@@ -1,0 +1,37 @@
+*
+  box-sizing: border-box
+
+h1
+  text-align: center
+
+section
+  height: 80vh
+  max-width: 1200px
+  margin: 0 auto
+  display: flex
+  flex-flow: row wrap
+  border: solid #666 1px
+
+main
+  font-size: 1.2em
+  width: 80%
+  float: left
+  height: 100%
+  display: flex
+  flex-flow: column
+  .chatbox
+    padding: 15px
+    overflow-y: scroll
+  form
+    background-color: #bbb
+    padding: 5px
+    margin-top: auto
+    font-size: 1.1em
+    input[type='text']
+      width: 90%
+aside
+  width: 20%
+  float: right
+  background-color: gray
+  height: 100%
+  padding: 15px

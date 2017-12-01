@@ -78,6 +78,15 @@ define('main',['exports', './environment'], function (exports, _environment) {
     });
   }
 });
+define('resources/index',["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.configure = configure;
+  function configure(config) {}
+});
 define('services/loginService',["exports"], function (exports) {
   "use strict";
 
@@ -224,15 +233,6 @@ define('views/login',['exports', 'aurelia-framework', '../services/loginService'
 
     return Login;
   }()) || _class);
-});
-define('resources/index',["exports"], function (exports) {
-  "use strict";
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.configure = configure;
-  function configure(config) {}
 });
 define('text!app.html', ['module'], function(module) { module.exports = "<template><router-view class=\"col-md-8\"></router-view></template>"; });
 define('text!app.css', ['module'], function(module) { module.exports = "body {\n  font-family: 'Helvetica', 'Arial', sans-serif; }\n\nul {\n  list-style: none;\n  padding-left: 0; }\n"; });

@@ -78,15 +78,6 @@ define('main',['exports', './environment'], function (exports, _environment) {
     });
   }
 });
-define('resources/index',["exports"], function (exports) {
-  "use strict";
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.configure = configure;
-  function configure(config) {}
-});
 define('services/loginService',["exports"], function (exports) {
   "use strict";
 
@@ -234,9 +225,19 @@ define('views/login',['exports', 'aurelia-framework', '../services/loginService'
     return Login;
   }()) || _class);
 });
+define('resources/index',["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.configure = configure;
+  function configure(config) {}
+});
 define('text!app.html', ['module'], function(module) { module.exports = "<template><router-view class=\"col-md-8\"></router-view></template>"; });
 define('text!app.css', ['module'], function(module) { module.exports = "body {\n  font-family: 'Helvetica', 'Arial', sans-serif; }\n\nul {\n  list-style: none;\n  padding-left: 0; }\n"; });
 define('text!views/chat.html', ['module'], function(module) { module.exports = "<template><require from=\"./chat.css\"></require><require from=\"../app.css\"></require><h1>Hello, ${username} !</h1><section><main><div class=\"chatbox\"><p repeat.for=\"msg of messages\">${msg}</p></div><form submit.trigger=\"post()\"><input type=\"text\" value.bind=\"newPost\"> <input type=\"submit\" value=\"Send\"></form></main><aside><h2>Users</h2><ul><li repeat.for=\"user of users\">${user.username}</li></ul></aside></section></template>"; });
-define('text!views/login.html', ['module'], function(module) { module.exports = "<template><require from=\"../app.css\"></require><h1>Please select a Username</h1><form submit.trigger=\"login()\"><input type=\"text\" value.bind=\"username\"> <input type=\"submit\" name=\"\" value=\"log in\"></form></template>"; });
+define('text!views/login.html', ['module'], function(module) { module.exports = "<template><require from=\"./login.css\"></require><require from=\"../app.css\"></require><main><h1>Please select a Username</h1><form submit.trigger=\"login()\"><input type=\"text\" value.bind=\"username\"> <input type=\"submit\" name=\"\" value=\"log in\"></form></main></template>"; });
 define('text!views/chat.css', ['module'], function(module) { module.exports = "* {\n  box-sizing: border-box; }\n\nh1 {\n  text-align: center; }\n\nsection {\n  height: 80vh;\n  max-width: 1200px;\n  margin: 0 auto;\n  display: flex;\n  flex-flow: row wrap;\n  border: solid #666 1px; }\n\nmain {\n  font-size: 1.2em;\n  width: 80%;\n  float: left;\n  height: 100%;\n  display: flex;\n  flex-flow: column; }\n  main .chatbox {\n    padding: 15px;\n    overflow-y: scroll; }\n  main form {\n    background-color: #bbb;\n    padding: 5px;\n    margin-top: auto;\n    font-size: 1.1em; }\n    main form input[type='text'] {\n      width: 90%; }\n\naside {\n  width: 20%;\n  float: right;\n  background-color: gray;\n  height: 100%;\n  padding: 15px; }\n"; });
+define('text!views/login.css', ['module'], function(module) { module.exports = "main {\n  height: 100vh;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-flow: column wrap; }\n"; });
 //# sourceMappingURL=app-bundle.js.map

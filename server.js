@@ -45,9 +45,17 @@ let users = [];
 
 io.on('connection', function(socket){
   socket.on('user joined chatroom', function(user){
+    let isConnected = users.findIndex(user=>user.sessionID===socket.handshake.sessionID);
+    if (isConnected !== -1){
+      let user = users[isConnected];
+      console.log(user.username + ' left the chatroom');
+      users.splice(isConnected, 1);
+      socket.broadcast.emit('user left', {message: user.username + " left the chatroom !", users: users});
+    }
     users.push({
       id : socket.id,
-      username : user
+      username : user,
+      sessionID : socket.handshake.sessionID
     })
     console.log(user + ' joined the chatroom');
     socket.emit('connection succesful', users)
@@ -55,7 +63,7 @@ io.on('connection', function(socket){
   });
 
   socket.on('disconnect', ()=>{
-    let index = users.findIndex((user)=>user.id === socket.id);
+    let index = users.findIndex(user=>user.id === socket.id);
     if (index !== -1){
       let user = users[index];
       console.log(user.username + ' left the chatroom');

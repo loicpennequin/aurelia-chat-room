@@ -1,6 +1,28 @@
-main
-  height: 100vh
-  display: flex
-  justify-content: center
-  align-items: center
-  flex-flow: column wrap
+@import '../sass-utils.sass'
+
+.login-component
+  background: linear-gradient(135DEG, $primary-color, adjust-hue($primary-color, 50%))
+  main
+    height: 100vh
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-flow: column wrap
+
+    h1
+      color: white
+      text-align: center
+
+    input
+      margin-bottom: 15px
+      font-size: 1.1em
+      &[type="submit"]
+        background: $dark
+        color: white
+        padding: 5px 15px
+        border: none
+        border-radius: 10px
+        cursor: pointer
+      +mobile
+        width: 100%
+        border-radius: 10px

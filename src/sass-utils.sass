@@ -1,0 +1,15 @@
+$primary-color: hsl(210, 50%, 50%)
+$secondary-color: hsl(200, 50%, 65%)
+$dark: #333
+$light: #eee
+
+$max-mobile-width: 768px
+$max-hd-width: 1400px
+
+=mobile
+  @media screen and (max-width : $max-mobile-width)
+    @content
+
+=fullhd
+  @media screen and (min-width: $max-hd-width)
+    @content

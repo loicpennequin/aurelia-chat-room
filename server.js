@@ -42,6 +42,7 @@ io.use(ios(sessionParams));
 Socket.io Config
 ============================================================================= */
 let users = [];
+let socketsArr = [];
 
 io.on('connection', function(socket){
   socket.on('user joined chatroom', function(user){
@@ -49,8 +50,7 @@ io.on('connection', function(socket){
     if (isConnected !== -1){
       let user = users[isConnected];
       console.log(user.username + ' left the chatroom');
-      users.splice(isConnected, 1);
-      socket.broadcast.emit('user left', {message: user.username + " left the chatroom !", users: users});
+      socket.broadcast.emit('user left', {message: {post: user.username + " has left the chatroom !"}, users: users});
     }
     users.push({
       id : socket.id,
@@ -59,7 +59,7 @@ io.on('connection', function(socket){
     })
     console.log(user + ' joined the chatroom');
     socket.emit('connection succesful', users)
-    socket.broadcast.emit('user joined', {message: user + " joined the chatroom !", users: users})
+    socket.broadcast.emit('user joined', {message: {post: user + " joined the chatroom !"}, users: users})
   });
 
   socket.on('disconnect', ()=>{
@@ -68,16 +68,27 @@ io.on('connection', function(socket){
       let user = users[index];
       console.log(user.username + ' left the chatroom');
       users.splice(index, 1);
-      socket.broadcast.emit('user left', {message: user.username + " left the chatroom !", users: users})
+      socket.broadcast.emit('user left', {message: {post: user.username + " left the chatroom !"}, users: users})
     }
   })
 
   socket.on('new post', (post)=>{
     let user = users.find((u)=> u.id === socket.id)
-    let msg = user.username + " : " + post
+    let msg =  {
+        user : user.username,
+        post : post
+    }
     io.sockets.emit('new post', msg)
   })
 
+  socket.on('new pm', (data)=>{
+    let target = users.find(u=>u.sessionID === data.target.sessionID).id;
+    let room = socket.id + target;
+    socket.join(room);
+    io.of("/").connected[target].join(room);
+
+    socket.to(room).emit('new pm', {user: users.find(u=>u.id===socket.id), post: data.post});
+  })
 });
 
 http.listen(process.env.PORT || 8080, ()=>{

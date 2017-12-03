@@ -5,9 +5,12 @@ export class LoginService{
 
   set(username){
     this.username = username;
+    sessionStorage.setItem('username', username);
   }
 
+
   get(){
-    return this.username
+    if (this.username === "") return sessionStorage.getItem('username');
+    else return this.username;
   }
 }

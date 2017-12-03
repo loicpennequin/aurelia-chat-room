@@ -1,37 +1,118 @@
-*
-  box-sizing: border-box
+@import '../sass-utils.sass'
 
-h1
-  text-align: center
-
-section
-  height: 80vh
-  max-width: 1200px
-  margin: 0 auto
+.chat-component
+  height: 100vh
+  background: linear-gradient(135DEG, $primary-color, adjust-hue($primary-color, 50%))
+  // background: black
+  padding-top: 10px
   display: flex
-  flex-flow: row wrap
-  border: solid #666 1px
+  justify-content: center
+  flex-direction: column
+  align-items: center
+  h1
+    // text-align: center
+    font-size: 1.3em
+    // background: linear-gradient(to right, $secondary-color, lighten($secondary-color, 10%))
+    background: $dark
+    font-weight: normal
+    color: white
+    padding: 10px
+    width: 100%
+    max-width: 1000px
+    // box-shadow: 0 5px 10px 0 transparentize($dark, 0.4)
+    +fullhd
+      max-width: 1400px
 
-main
-  font-size: 1.2em
-  width: 80%
-  float: left
-  height: 100%
-  display: flex
-  flex-flow: column
-  .chatbox
-    padding: 15px
-    overflow-y: scroll
-  form
-    background-color: #bbb
-    padding: 5px
-    margin-top: auto
-    font-size: 1.1em
-    input[type='text']
-      width: 90%
-aside
-  width: 20%
-  float: right
-  background-color: gray
-  height: 100%
-  padding: 15px
+  section
+    height: 80vh
+    width: 100%
+    max-width: 1000px
+    margin: 0 auto
+    display: flex
+    flex-flow: row wrap
+    +fullhd
+      max-width: 1400px
+    // box-shadow: 0 5px 10px 0 transparentize($dark, 0.4)
+
+  main
+    font-size: 1.2em
+    flex-grow: 1
+    float: left
+    height: 100%
+    display: flex
+    flex-flow: column
+    .chatbox
+      padding: 15px
+      font-size: 0.9em
+      height: 100%
+      overflow-y: scroll
+      background: $light
+      border-left: solid $dark 1px
+      p
+        margin: 0 0 5px
+
+    form
+      background-color: $dark
+      margin-top: auto
+      border-left: solid $dark 1px
+      border-bottom: solid $dark 1px
+      input
+        font-size: 1em
+        &[type="submit"]
+          border-color: transparent
+          background: $secondary-color
+          color: white
+          width: 10%
+          cursor: pointer
+          &:hover
+            filter: contrast(140%) brightness(120%)
+        &[type='text']
+          border-right: none
+          width: 90%
+
+  aside
+    width: 20%
+    float: right
+    background-color: $dark
+    color: white
+    height: 100%
+    overflow: hidden
+    padding: 10px
+    h2
+      font-size: 1.1em
+    ul
+      width: calc(100% + 27px)
+      height: 100%
+      overflow-y: scroll
+      li
+        cursor: pointer
+
+  .tabs-container
+    ul
+      display: flex
+      flex-direction: row
+      width: 100%
+      li
+        cursor: pointer
+        padding: 5px
+        background: $primary-color
+        color: white
+        border: solid 1px $dark
+        &.active
+          background: $light
+          color: $dark
+          border-bottom-color: transparent
+        &.new-post
+          animation: blink 2s linear infinite
+        span
+          font-size: 0.7em
+          background: hsl(350, 50%, 50%)
+          padding: 3px 5px
+          border: solid 1px $light
+          border-radius: 4px
+
+  @keyframes blink
+    from, 50%
+      background: orange
+    51%, to
+      background: $primary-color

@@ -1,11 +1,15 @@
 <template>
   <require from="./login.css"></require>
   <require from="../app.css"></require>
-  <main>
-    <h1>Please select a Username</h1>
-    <form submit.trigger="login()">
-      <input type="text" value.bind="username">
-      <input type="submit" name="" value="log in">
-    </form>
-  </main>
+
+  <div class="login-component">
+    <main>
+      <h1>Please select a Username</h1>
+      <form submit.trigger="login()">
+        <input type="text" value.bind="username">
+        <input type="submit" name="" value="Log in">
+      </form>
+    </main>
+  </div>
+
 </template>

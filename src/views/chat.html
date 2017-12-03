@@ -1,22 +1,48 @@
-<template>
+--  <template>
   <require from="./chat.css"></require>
   <require from="../app.css"></require>
-  <h1>Hello, ${username} !</h1>
-  <section>
-    <main>
-      <div class="chatbox">
-        <p repeat.for="msg of messages">${msg}</p>
-      </div>
-      <form submit.trigger="post()">
-        <input type="text" value.bind="newPost">
-        <input type="submit" value="Send">
-      </form>
-    </main>
-    <aside>
-      <h2>Users</h2>
-      <ul>
-        <li repeat.for="user of users">${user.username}</li>
-      </ul>
-    </aside>
-  </section>
+
+  <div class="chat-component">
+    <h1>Chatroom</h1>
+    <section>
+      <main>
+
+        <div class="tabs-container" if.bind="tabs.length > 0">
+          <ul>
+            <li click.delegate="activeTab = -1" class="${activeTab == tabs.indexOf(tab)? 'active':''}">General</li>
+            <li click.delegate="setActiveTab(tab)" repeat.for="tab of tabs"
+                class="${activeTab == tabs.indexOf(tab)? 'active':''}
+                       ${tab.newPost == true && activeTab !=  tabs.indexOf(tab)? 'new-post':''}">
+              ${tab.user.username} <span click.delegate="closeTab(tab)">x</span>
+            </li>
+          </ul>
+        </div>
+
+        <div repeat.for="tab of tabs" class="chatbox" if.bind="activeTab==tabs.indexOf(tab)">
+          <p repeat.for="msg of tab.messages">
+            <span show.bind="msg.user"><strong>${msg.user.username}</strong> :</span>
+            <span css.bind="{color: msg.user?'':'gray'}">${msg.post}</span>
+          </p>
+        </div>
+
+        <div class="chatbox" if.bind="activeTab == -1">
+          <p repeat.for="msg of messages">
+            <span show.bind="msg.user"><strong>${msg.user}</strong> :</span>
+            <span css.bind="{color: msg.user?'':'gray'}">${msg.post}</span>
+          </p>
+        </div>
+        <form submit.trigger="post()">
+          <input type="text" value.bind="newPost"><!--
+---------><input type="submit" value="Send">
+        </form>
+      </main>
+      <aside>
+        <h2>Users</h2>
+        <ul>
+          <li repeat.for="user of users" dblclick.delegate="openTab(user)">${user.username} <span show.bind="user.username == username">(You)</span></li>
+        </ul>
+      </aside>
+    </section>
+  </div>
+
 </template>

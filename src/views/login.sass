@@ -1,16 +1,19 @@
 @import '../sass-utils.sass'
 
 .login-component
-  background: linear-gradient(135DEG, $primary-color, adjust-hue($primary-color, 50%))
+  // background: linear-gradient(135DEG, $primary-color, adjust-hue($primary-color, 50%))
+  position: relative
   main
     height: 100vh
     display: flex
     justify-content: center
     align-items: center
     flex-flow: column wrap
+    position: relative
+    z-index: 3
 
     h1
-      color: white
+      color: $dark
       text-align: center
 
     input
@@ -26,3 +29,42 @@
       +mobile
         width: 100%
         border-radius: 10px
+
+#sketch, canvas
+  position: absolute
+  top: 0
+  left: 0
+  z-index: 1
+
+#sketch
+  background: linear-gradient(hsl(210,100%,70%), hsl(20, 100%, 50%))
+  height: 100vh
+  width: 100%
+  overflow: hidden
+  animation: hue-change 10s infinite alternate
+  perspective: 800px
+  -webkit-mask-image: linear-gradient(black 35%, transparent);
+
+
+#sketch::after
+  content: ""
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  z-index: 2
+  background: linear-gradient(135DEG, white, hsl(200,30%,20%))
+  mix-blend-mode: multiply
+  opacity: 0.3
+
+canvas
+  mix-blend-mode: lighten
+  filter: blur(15px) contrast(850%)
+  box-shadow: 0 0 0 20px white
+
+@keyframes hue-change
+  from
+    filter: hue-rotate(0)
+  to
+    filter: hue-rotate(-30DEG)
